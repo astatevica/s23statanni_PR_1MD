@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -60,6 +61,11 @@ public class Driver {
 	@Size(min = 8, max = 8)
 	@Pattern(regexp = "[A]{1}[T]{1}[0-9]{6}", message = "Invalid license no")
 	private String license_no;
+	
+	//saite uz Parcel
+	@OneToOne(mappedBy = "driver")
+	@ToString.Exclude
+	private Parcel parcel;
 	
 	public Driver(String name,String person_code, String surname, float experience_in_years, String license_no) {
 		setName(surname);

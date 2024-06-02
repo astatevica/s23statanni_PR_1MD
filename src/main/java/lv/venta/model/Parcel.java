@@ -70,9 +70,12 @@ public class Parcel {
 	@JoinColumn(name = "Idcc")
 	private CustomerAsCompany customerAsCompany;
 	
-	//TODO saite uz Driver
+	//saite no Driver
+	@OneToOne
+	@JoinColumn(name = "Idd")
+	private Driver driver;
 	
-	public Parcel(boolean is_fragile,Date order_created, Date order_delivery, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany) {
+	public Parcel(boolean is_fragile,Date order_created, Date order_delivery, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany, Driver driver) {
 		set_fragile(is_fragile);
 		setOrder_created(order_created);//TODO saprast kā pievienot order date
 		setOrder_delivery(order_delivery);//TODO saprast kā pievienot order date
@@ -80,6 +83,7 @@ public class Parcel {
 		setSize(size);
 		setCustomerAsPerson(customerAsPerson);
 		setCustomerAsCompany(customerAsCompany);
+		setDriver(driver);
 	}
 	
 	
