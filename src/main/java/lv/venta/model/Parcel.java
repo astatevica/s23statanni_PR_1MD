@@ -1,7 +1,5 @@
 package lv.venta.model;
 
-import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -37,17 +36,17 @@ public class Parcel {
 	@Setter
 	private boolean is_fragile;
 	
-	//TODO šeit var rasties priblēmas
 	@Column(name = "Order_created")
-	@NotNull
 	@Setter
-	private Date order_created;
+	private LocalDateTime order_created;
 	
-	//TODO šeit var rasties priblēmas
 	@Column(name = "Order_delivery")
-	@NotNull
 	@Setter
-	private Date order_delivery;
+	private LocalDateTime order_delivery;
+	
+	//izveidoju mainīgo, kas neies DB, bet kas paņems dienu skaitu pēc kāda laika var tikt piegādāts sūtījums
+	@Setter
+	private int days;
 	
 	@Column(name = "Price")
 	@NotNull
@@ -75,10 +74,10 @@ public class Parcel {
 	@JoinColumn(name = "Idd")
 	private Driver driver;
 	
-	public Parcel(boolean is_fragile,Date order_created, Date order_delivery, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany, Driver driver) {
+	public Parcel(boolean is_fragile, int days, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany, Driver driver) {
 		set_fragile(is_fragile);
-		setOrder_created(order_created);//TODO saprast kā pievienot order date
-		setOrder_delivery(order_delivery);//TODO saprast kā pievienot order date
+		setOrder_created(LocalDateTime.now());
+		setOrder_delivery(LocalDateTime.now().plusDays(days));
 		setPrice(price);
 		setSize(size);
 		setCustomerAsPerson(customerAsPerson);

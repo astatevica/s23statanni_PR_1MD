@@ -1,5 +1,6 @@
 package lv.venta;
 
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +11,9 @@ import lv.venta.model.City;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Driver;
+import lv.venta.model.Parcel;
 import lv.venta.model.Person;
+import lv.venta.model.Size;
 import lv.venta.repo.IAddressRepo;
 import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
@@ -65,8 +68,7 @@ public class AnnijasEOmnivaApplication {
 				custPersRepo.save(customerAsPerson2);
 				custPersRepo.save(customerAsPerson3);
 				
-				//CustomerAsCompany Model pārbaude
-				//CustomerAsCompany(String company_reg_no, String phone_no, String title, Address address)
+				//CustomerAsCompany Model pārbaude WORKS
 				CustomerAsCompany customerAsCompany1 = new CustomerAsCompany("LV19820938762", "82983764", "SIA Ābolītis", address1);
 				CustomerAsCompany customerAsCompany2 = new CustomerAsCompany("LV90387265361", "98217635", "SIA Strautiņš", address2);
 				CustomerAsCompany customerAsCompany3 = new CustomerAsCompany("LV27817625363", "28765413", "SIA Vanagi", address3);
@@ -74,7 +76,11 @@ public class AnnijasEOmnivaApplication {
 				custCompRepo.save(customerAsCompany2);
 				custCompRepo.save(customerAsCompany3);
 				
-				
+				//Parcel Model pārbaude WORKS
+				Parcel parcel1 = new Parcel(false,2,(float)12.99, Size.M,customerAsPerson1, null, driver1);
+				Parcel parcel2 = new Parcel(true ,6,(float)2.99, Size.S,null, customerAsCompany2, driver2);
+				parcelRepo.save(parcel1);
+				parcelRepo.save(parcel2);
 				
 				
 			}
