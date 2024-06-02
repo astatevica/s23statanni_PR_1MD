@@ -1,11 +1,14 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -47,8 +50,11 @@ public class CustomerAsPerson {
 	@Pattern(regexp = "[0-9]{8}", message = "Only numbers are allowed with out country code before")
 	private String phone_no;
 	
-	//TODO saite no adreses būs šeit
-	//private Address address;
+	//saite no Adress
+	//TODO mby te būs otrādi
+	@OneToMany(mappedBy = "customerAsPerson")
+	@ToString.Exclude
+	private Collection<Address> addresses;
 	
 	//saite no Person
 	@OneToOne

@@ -1,10 +1,13 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -50,7 +53,10 @@ public class CustomerAsCompany {
 	@Size(min = 5, max = 50)
 	private String title;
 	
-	//TODO te nāks saite uz Address
+	//saite no Adress
+	@OneToMany(mappedBy = "customerAsCompany")
+	@ToString.Exclude
+	private Collection<Address> addresses;
 	
 	//saite uz Parcel
 	@OneToOne(mappedBy = "customerAsCompany")
