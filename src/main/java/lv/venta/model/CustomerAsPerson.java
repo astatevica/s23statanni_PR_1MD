@@ -29,10 +29,11 @@ public class CustomerAsPerson {
 	@Setter(value = AccessLevel.NONE)
 	private int idc;
 	
-	//TODO izdomāt kā uzsetot personas customer code
-	//šeit nevajadzētu ļaut kko ievadīt, bet automātisku uzsetot 
+	//TODO izdomāt kā uzsetot personas customer code 
 	@Column(name = "Customer_code")
 	//@Setter(value = idc+"person"+person_code)
+	@NotNull
+	@Setter
 	private String customer_code;
 	
 	@Column(name = "Person_code")
@@ -40,7 +41,6 @@ public class CustomerAsPerson {
 	@Size(min = 12, max = 12)
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
 	private String person_code;
-	
 	
 	
 	@Column(name = "Phone_no")
@@ -54,6 +54,12 @@ public class CustomerAsPerson {
 	
 	//TODO saite no persones šeit būs
 	//private Person person;
+	
+	public CustomerAsPerson(String customer_code, String person_code, String phone_no) {
+		setCustomer_code(customer_code);
+		setPerson_code(person_code);
+		setPhone_no(phone_no);
+	}
 	
 	
 }
