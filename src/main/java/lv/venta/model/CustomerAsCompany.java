@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -53,14 +52,8 @@ public class CustomerAsCompany {
 	@Size(min = 5, max = 50)
 	private String title;
 	
-//	//saite no Adress
-//	//TODO mby te būs otrādi
-//	@OneToMany(mappedBy = "customerAsCompany")
-//	@ToString.Exclude
-//	private Collection<Address> addresses;
-	
 	//saite uz Address
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="Ida")
 	private Address address;
 	
@@ -69,11 +62,12 @@ public class CustomerAsCompany {
 	@ToString.Exclude
 	private Parcel parcel;
 	
-	public CustomerAsCompany(String customer_code, String phone_no, String title) {
+	public CustomerAsCompany(String customer_code, String phone_no, String title, Address address) {
 		setCompany_reg_no(company_reg_no="0_company_"+customer_code); //TODO pārbaudīt vai strādā
 		setCustomer_code(customer_code);
 		setPhone_no(phone_no);
 		setTitle(title);
+		setAddress(address);
 	}
 	
 	

@@ -1,14 +1,12 @@
 package lv.venta.model;
 
 
-import java.util.Collection;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -48,14 +46,14 @@ public class Address {
 	private String street_or_house_title;
 	
 	//saite no CustomerAsPerson
-	@OneToMany(mappedBy = "address")
+	@OneToOne(mappedBy = "address")
 	@ToString.Exclude
-	private Collection<CustomerAsPerson> customerAsPerson;
+	private CustomerAsPerson customerAsPerson;
 	
 	//saite no CustomerAsCompany
-	@OneToMany(mappedBy = "address")
+	@OneToOne(mappedBy = "address")
 	@ToString.Exclude
-	private Collection<CustomerAsCompany> customerAsCompany;
+	private CustomerAsCompany customerAsCompany;
 	
 	public Address(City city, int house_no, String street_or_house_title) {
 		setCity(city);

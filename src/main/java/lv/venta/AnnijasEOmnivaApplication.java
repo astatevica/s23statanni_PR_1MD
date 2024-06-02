@@ -56,13 +56,16 @@ public class AnnijasEOmnivaApplication {
 				driverRepo.save(driver2);
 				driverRepo.save(driver3);
 				
-				//CustomerAsPerson Model pārbaude 
-				CustomerAsPerson customerAsPerson1 = new CustomerAsPerson("290344-32123", "82983764", person1);
-				CustomerAsPerson customerAsPerson2 = new CustomerAsPerson("290867-32123", "98217635", person2);
-				CustomerAsPerson customerAsPerson3 = new CustomerAsPerson("130767-32123", "28765413", person3);
+				//CustomerAsPerson Model pārbaude WORKS
+				CustomerAsPerson customerAsPerson1 = new CustomerAsPerson("290344-32123", "82983764", person1, address1);
+				CustomerAsPerson customerAsPerson2 = new CustomerAsPerson("290867-32123", "98217635", person2, address2);
+				CustomerAsPerson customerAsPerson3 = new CustomerAsPerson("130767-32123", "28765413", person3, address3);
 				custPersRepo.save(customerAsPerson1);
 				custPersRepo.save(customerAsPerson2);
 				custPersRepo.save(customerAsPerson3);
+				
+				//CustomerAsCompany Model pārbaude
+				//CustomerAsCompany(String customer_code, String phone_no, String title, Address address)
 				
 				
 				

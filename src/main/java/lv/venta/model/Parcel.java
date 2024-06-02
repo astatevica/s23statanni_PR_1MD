@@ -62,7 +62,7 @@ public class Parcel {
 	
 	//saite no CustomerAsPerson
 	@OneToOne
-	@JoinColumn(name = "Idcp") //TODO iespējams vajadzēs pārsaukt
+	@JoinColumn(name = "Idcp")
 	private CustomerAsPerson customerAsPerson;
 	
 	//saite no CustomerAsCompany

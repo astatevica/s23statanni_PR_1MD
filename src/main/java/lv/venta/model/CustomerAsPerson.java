@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -50,7 +49,7 @@ public class CustomerAsPerson {
 	private String phone_no;
 	
 	//saite uz Address
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="Ida")
 	private Address address;
 	
@@ -64,11 +63,12 @@ public class CustomerAsPerson {
 	@ToString.Exclude
 	private Parcel parcel;
 	
-	public CustomerAsPerson(String person_code, String phone_no, Person person) {
+	public CustomerAsPerson(String person_code, String phone_no, Person person, Address address) {
 		setCustomer_code(customer_code="0_person_"+person_code); //TODO pārbaudīt vai vispār strādā
 		setPerson_code(person_code);
 		setPhone_no(phone_no);
 		setPerson(person);
+		setAddress(address);
 	}
 	
 	
