@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -49,13 +51,16 @@ public class CustomerAsPerson {
 	//TODO saite no adreses būs šeit
 	//private Address address;
 	
-	//TODO saite no persones šeit būs
-	//private Person person;
+	//saite no Person
+	@OneToOne
+	@JoinColumn(name = "Idp")
+	private Person person;
 	
-	public CustomerAsPerson(String person_code, String phone_no) {
+	public CustomerAsPerson(String person_code, String phone_no, Person person) {
 		setCustomer_code(customer_code="0_person_"+person_code); //TODO pārbaudīt vai vispār strādā
 		setPerson_code(person_code);
 		setPhone_no(phone_no);
+		setPerson(person);
 	}
 	
 	

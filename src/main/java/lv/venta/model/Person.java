@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -46,6 +47,11 @@ public class Person {
 	@Size(min = 3, max = 50)
 	@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters and space are allowed")
 	private String surname; 
+	
+	//saite uz CustomerAsPerson
+	@OneToOne(mappedBy = "person")
+	@ToString.Exclude
+	private CustomerAsPerson customer_as_person;
 	
 	public Person(String name, String person_code,String surname ) {
 		setName(name);
