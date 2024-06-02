@@ -35,7 +35,6 @@ public class CustomerAsCompany {
 	private String company_reg_no;
 	 
 	@Column(name = "Customer_code")
-	@NotNull
 	@Setter
 	private String customer_code;
 	

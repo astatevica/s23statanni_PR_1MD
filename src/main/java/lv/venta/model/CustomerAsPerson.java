@@ -30,7 +30,6 @@ public class CustomerAsPerson {
 	private int idc;
 	
 	@Column(name = "Customer_code")
-	@NotNull
 	@Setter
 	private String customer_code;
 	
