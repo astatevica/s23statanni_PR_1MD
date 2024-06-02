@@ -54,6 +54,7 @@ public class CustomerAsCompany {
 	private String title;
 	
 	//saite no Adress
+	//TODO mby te būs otrādi
 	@OneToMany(mappedBy = "customerAsCompany")
 	@ToString.Exclude
 	private Collection<Address> addresses;
