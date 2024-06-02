@@ -41,7 +41,6 @@ public class CustomerAsPerson {
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
 	private String person_code;
 	
-	
 	@Column(name = "Phone_no")
 	@NotNull
 	@Size(min = 8, max = 8)
@@ -55,6 +54,11 @@ public class CustomerAsPerson {
 	@OneToOne
 	@JoinColumn(name = "Idp")
 	private Person person;
+	
+	//saite uz Parcel
+	@OneToOne(mappedBy = "customerAsPerson")
+	@ToString.Exclude
+	private Parcel parcel;
 	
 	public CustomerAsPerson(String person_code, String phone_no, Person person) {
 		setCustomer_code(customer_code="0_person_"+person_code); //TODO pārbaudīt vai vispār strādā
