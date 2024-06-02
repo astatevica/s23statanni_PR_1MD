@@ -68,7 +68,7 @@ public class Driver {
 	private Parcel parcel;
 	
 	public Driver(String name,String person_code, String surname, float experience_in_years, String license_no) {
-		setName(surname);
+		setName(name);
 		setPerson_code(person_code);
 		setSurname(surname);
 		setExperience_in_years(experience_in_years);
