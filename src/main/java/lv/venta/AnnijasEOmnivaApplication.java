@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import lv.venta.model.Address;
 import lv.venta.model.City;
+import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Driver;
 import lv.venta.model.Person;
 import lv.venta.repo.IAddressRepo;
@@ -56,7 +57,12 @@ public class AnnijasEOmnivaApplication {
 				driverRepo.save(driver3);
 				
 				//CustomerAsPerson Model pārbaude 
-				
+				CustomerAsPerson customerAsPerson1 = new CustomerAsPerson("290344-32123", "82983764", person1);
+				CustomerAsPerson customerAsPerson2 = new CustomerAsPerson("290867-32123", "98217635", person2);
+				CustomerAsPerson customerAsPerson3 = new CustomerAsPerson("130767-32123", "28765413", person3);
+				custPersRepo.save(customerAsPerson1);
+				custPersRepo.save(customerAsPerson2);
+				custPersRepo.save(customerAsPerson3);
 				
 				
 				
