@@ -29,9 +29,7 @@ public class CustomerAsPerson {
 	@Setter(value = AccessLevel.NONE)
 	private int idc;
 	
-	//TODO izdomāt kā uzsetot personas customer code 
 	@Column(name = "Customer_code")
-	//@Setter(value = idc+"person"+person_code)
 	@NotNull
 	@Setter
 	private String customer_code;
@@ -55,8 +53,8 @@ public class CustomerAsPerson {
 	//TODO saite no persones šeit būs
 	//private Person person;
 	
-	public CustomerAsPerson(String customer_code, String person_code, String phone_no) {
-		setCustomer_code(customer_code);
+	public CustomerAsPerson(String person_code, String phone_no) {
+		setCustomer_code(customer_code="0_person_"+person_code); //TODO pārbaudīt vai vispār strādā
 		setPerson_code(person_code);
 		setPhone_no(phone_no);
 	}
