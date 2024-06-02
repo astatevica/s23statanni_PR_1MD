@@ -62,19 +62,24 @@ public class Parcel {
 	
 	//saite no CustomerAsPerson
 	@OneToOne
-	@JoinColumn(name = "Idc") //TODO iespējams vajadzēs pārsaukt
+	@JoinColumn(name = "Idcp") //TODO iespējams vajadzēs pārsaukt
 	private CustomerAsPerson customerAsPerson;
 	
-	//TODO saite uz CustomerAsCompany
+	//saite no CustomerAsCompany
+	@OneToOne
+	@JoinColumn(name = "Idcc")
+	private CustomerAsCompany customerAsCompany;
+	
 	//TODO saite uz Driver
 	
-	public Parcel(boolean is_fragile,Date order_created, Date order_delivery, float price, Size size, CustomerAsPerson customerAsPerson) {
+	public Parcel(boolean is_fragile,Date order_created, Date order_delivery, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany) {
 		set_fragile(is_fragile);
 		setOrder_created(order_created);//TODO saprast kā pievienot order date
 		setOrder_delivery(order_delivery);//TODO saprast kā pievienot order date
 		setPrice(price);
 		setSize(size);
 		setCustomerAsPerson(customerAsPerson);
+		setCustomerAsCompany(customerAsCompany);
 	}
 	
 	

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -23,10 +24,10 @@ import lombok.ToString;
 @Entity
 public class CustomerAsCompany {
 	@Id
-	@Column(name = "Idc")
+	@Column(name = "Idcc")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private int idc;
+	private int idcc;
 	
 	@Column(name = "Company_reg_no")
 	@NotNull
@@ -50,6 +51,11 @@ public class CustomerAsCompany {
 	private String title;
 	
 	//TODO te nāks saite uz Address
+	
+	//saite uz Parcel
+	@OneToOne(mappedBy = "customerAsCompany")
+	@ToString.Exclude
+	private Parcel parcel;
 	
 	public CustomerAsCompany(String customer_code, String phone_no, String title) {
 		setCompany_reg_no(company_reg_no="0_company_"+customer_code); //TODO pārbaudīt vai strādā

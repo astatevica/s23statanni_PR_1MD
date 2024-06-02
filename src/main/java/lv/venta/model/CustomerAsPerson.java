@@ -26,10 +26,10 @@ import lombok.ToString;
 public class CustomerAsPerson {
 
 	@Id
-	@Column(name = "Idc")
+	@Column(name = "Idcp")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private int idc;
+	private int idcp;
 	
 	@Column(name = "Customer_code")
 	@Setter
