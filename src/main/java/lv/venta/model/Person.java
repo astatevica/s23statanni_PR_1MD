@@ -38,7 +38,7 @@ public class Person {
 	@Column(name = "Person_code")
 	@NotNull
 	@Size(min = 12, max = 12)
-	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only letters and space are allowed")
+	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
 	private String person_code;
 	
 	@Column(name = "Surname")
