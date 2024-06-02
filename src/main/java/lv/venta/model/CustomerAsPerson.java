@@ -64,7 +64,7 @@ public class CustomerAsPerson {
 	private Parcel parcel;
 	
 	public CustomerAsPerson(String person_code, String phone_no, Person person, Address address) {
-		setCustomer_code(customer_code="0_person_"+person_code); //TODO pārbaudīt vai vispār strādā
+		setCustomer_code(customer_code="0_person_"+person_code);
 		setPerson_code(person_code);
 		setPhone_no(phone_no);
 		setPerson(person);

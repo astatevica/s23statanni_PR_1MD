@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import lv.venta.model.Address;
 import lv.venta.model.City;
+import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Driver;
 import lv.venta.model.Person;
@@ -65,7 +66,13 @@ public class AnnijasEOmnivaApplication {
 				custPersRepo.save(customerAsPerson3);
 				
 				//CustomerAsCompany Model pārbaude
-				//CustomerAsCompany(String customer_code, String phone_no, String title, Address address)
+				//CustomerAsCompany(String company_reg_no, String phone_no, String title, Address address)
+				CustomerAsCompany customerAsCompany1 = new CustomerAsCompany("LV19820938762", "82983764", "SIA Ābolītis", address1);
+				CustomerAsCompany customerAsCompany2 = new CustomerAsCompany("LV90387265361", "98217635", "SIA Strautiņš", address2);
+				CustomerAsCompany customerAsCompany3 = new CustomerAsCompany("LV27817625363", "28765413", "SIA Vanagi", address3);
+				custCompRepo.save(customerAsCompany1);
+				custCompRepo.save(customerAsCompany2);
+				custCompRepo.save(customerAsCompany3);
 				
 				
 				
