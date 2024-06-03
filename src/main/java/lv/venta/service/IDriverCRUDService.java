@@ -17,7 +17,7 @@ public interface IDriverCRUDService {
 	public abstract void deleteById(int Id) throws Exception;
 	
 	//insertNewDriver- pievieno jaunu šoferi sistēmā
-	public abstract void create(Driver driver);
+	public abstract void create(Driver driver) throws Exception;
 	
 	//updateDriverById- rediģē esošo šoferi
 	public abstract void update(int id, Driver driver) throws Exception;
