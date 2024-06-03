@@ -30,5 +30,6 @@ public interface IParcelService {
 	
 	//calculateHowManyParcelsNeedToDeliverToday- atgriež paciņu kopskaitu, kuras jānogādā šodien.
 	public abstract int calculateHowManyParcelsNeedToDeliverToday() throws Exception;
+	
 
 }

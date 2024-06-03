@@ -81,6 +81,7 @@ public class AnnijasEOmnivaApplication {
 				Parcel parcel2 = new Parcel(true ,6,(float)2.99, Size.S,null, customerAsCompany2, driver2);
 				parcelRepo.save(parcel1);
 				parcelRepo.save(parcel2);
+
 				
 				
 			}
