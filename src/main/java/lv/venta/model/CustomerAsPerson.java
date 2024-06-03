@@ -42,17 +42,6 @@ public class CustomerAsPerson {
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
 	private String person_code;
 	
-	@Column(name = "Phone_no")
-	@NotNull
-	@Size(min = 8, max = 8)
-	@Pattern(regexp = "[0-9]{8}", message = "Only numbers are allowed with out country code before")
-	private String phone_no;
-	
-	//saite uz Address
-	@OneToOne
-	@JoinColumn(name="Ida")
-	private Address address;
-	
 	//saite no Person
 	@OneToOne
 	@JoinColumn(name = "Idp")
@@ -63,12 +52,15 @@ public class CustomerAsPerson {
 	@ToString.Exclude
 	private Parcel parcel;
 	
-	public CustomerAsPerson(String person_code, String phone_no, Person person, Address address) {
+	//saite uz AbstractCustomer
+	@OneToOne(mappedBy = "customerAsPerson")
+	@ToString.Exclude
+	private AbstractCustomer abstractCustomer;
+	
+	public CustomerAsPerson(String person_code, Person person) {
 		setCustomer_code(customer_code="0_person_"+person_code);
 		setPerson_code(person_code);
-		setPhone_no(phone_no);
 		setPerson(person);
-		setAddress(address);
 	}
 	
 	

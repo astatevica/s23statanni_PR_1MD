@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -42,35 +41,26 @@ public class CustomerAsCompany {
 	@Setter
 	private String customer_code;
 	
-	@Column(name = "Phone_no")
-	@NotNull
-	@Size(min = 8, max = 8)
-	@Pattern(regexp = "[0-9]{8}", message = "Only numbers are allowed with out country code before")
-	@Setter
-	private String phone_no;
-	
 	@Column(name = "Title")
 	@NotNull
 	@Size(min = 5, max = 50)
 	@Setter
 	private String title;
 	
-	//saite uz Address
-	@OneToOne
-	@JoinColumn(name="Ida")
-	private Address address;
-	
 	//saite uz Parcel
 	@OneToOne(mappedBy = "customerAsCompany")
 	@ToString.Exclude
 	private Parcel parcel;
 	
-	public CustomerAsCompany(String company_reg_no, String phone_no, String title, Address address) {
+	//saite uz AbstractCustomer
+	@OneToOne(mappedBy = "customerAsCompany")
+	@ToString.Exclude
+	private AbstractCustomer abstractCustomer;
+	
+	public CustomerAsCompany(String company_reg_no, String title) {
 		setCompany_reg_no(company_reg_no);
 		setCustomer_code(company_reg_no="0_company_"+company_reg_no);
-		setPhone_no(phone_no);
 		setTitle(title);
-		setAddress(address);
 	}
 	
 	

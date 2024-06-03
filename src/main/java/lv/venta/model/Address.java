@@ -45,15 +45,10 @@ public class Address {
 	@Size(min = 3, max = 50)
 	private String street_or_house_title;
 	
-	//saite no CustomerAsPerson
+	//saite no AbstractCustomer
 	@OneToOne(mappedBy = "address")
 	@ToString.Exclude
-	private CustomerAsPerson customerAsPerson;
-	
-	//saite no CustomerAsCompany
-	@OneToOne(mappedBy = "address")
-	@ToString.Exclude
-	private CustomerAsCompany customerAsCompany;
+	private AbstractCustomer abstarctCustomer;
 	
 	public Address(City city, int house_no, String street_or_house_title) {
 		setCity(city);
