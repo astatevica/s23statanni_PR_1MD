@@ -1,5 +1,6 @@
 package lv.venta.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,114 +27,163 @@ public class ParcelServiceImpl implements IParcelService{
 	@Autowired
 	private IDriverRepo driverRepo;
 
+	//PĀRBAUDĪTS
 	@Override
 	public ArrayList<Parcel> selectAllParcelsByCustomerId(int id) throws Exception {
+		//pārbaudu id vērtību
 		if(id < 0) throw new Exception("Id should be positive number!");
 		
+		//pārbaudu vai eksistē šādi customers
+		//TODO iepsējams būs jāpārsauc id vieta
 		if(!customerAsCompanyRepo.existsById(id) || !customerAsPersonRepo.existsById(id)) throw new Exception("Customer with " + id + " id doesn't exist");
+		//Salieku visus vienā ArrayListā
 		//TODO šeit var labāk uzlabot
 		ArrayList<Parcel> result = parcelRepo.findByIdcp(id);
 		result.addAll(parcelRepo.findByIdcc(id));
 		
+		//Pārbaudu vai nav tukšs lists
 		if(result.isEmpty()) throw new Exception("There is no parcel with id: " + id + " as customer");
 		
+		//atgriežu rezultātu
 		return result;
 	}
 
+	//PĀRBAUDĪTS
 	@Override
 	public ArrayList<Parcel> selectAllParcelsDeliveredByDriverId(int id) throws Exception {
+		//Pārbaudu id vērtību
 		if(id < 0) throw new Exception("Id should be positive number!");
 		
+		//Atrodu Drivers pēc id un ielieku listā 
 		ArrayList<Parcel> result = parcelRepo.findByIdd(id);
 		
+		//Pārbaudu vai lists nav tukšs
 		if(result.isEmpty()) throw new Exception("There is no parcel with id: " + id + " drivers");
 		
 		return result;
 	}
 
+	//PĀRBAUDĪTS
 	@Override
 	public ArrayList<Parcel> selectAllParcelsPriceLessThan(float price) throws Exception {
+		//Pārbaudu ievadīto lielumu
 		if(price < 0.0) throw new Exception("Price should be more than zero!");
 		
+		//Sameklēju Preci un ielieku sarakstā
 		ArrayList<Parcel> result = parcelRepo.findByPriceLessThan(price);
 		
+		//Pārbaudu vai saraksts nav tukšs
 		if(result.isEmpty()) throw new Exception("There is no parcel with price less than " + price);
 		
+		//Atgriežu rezultātu
 		return result;
 	}
 
+	//PĀRBAUDĪTS
 	@Override
 	public ArrayList<Parcel> selectAllParcelsDeliveredToCity(City city) throws Exception {
 		//Nepārbaudu city, jo tas ir enumerators
+		
+		//Meklēju Tieši CustomerAsCompany adresi un pilsētu
 		ArrayList<Parcel> result = parcelRepo.findByIdccIdaCity(city);
 		
+		//Meklēju Tieši CustomerAsPerson adresi un pilsētu
+		result.addAll(parcelRepo.findByIdcpIdaCity(city));
+		
+		//Pārbaudu vai lists nav tukšs
 		if(result.isEmpty()) throw new Exception("There is no order to city " + city);
 		
+		//atgriežu rezultātu
 		return result;
 	}
 
-	//TODO NESTRĀDĀ
+	//PĀRBAUDĪTS
 	@Override
 	public void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id) throws Exception {
 
-		//TODO man te kks nestrādā
-//		//pārbauda vai tādi customer code eksistē
-//		if(!customerAsCompanyRepo.existsByCustomer_code(customer_code) || !customerAsPersonRepo.existsByCustomer_code(customer_code)) 
-//			throw new Exception("Customer with " + customer_code + " customer code doesn't exist");
-//		
-//		//pārbaudu vai tāds driver eksistē
-//		if(!driverRepo.existsByIdd(id)) throw new Exception("Driver with " + id + " id doesn't exist");
-//		
-//		CustomerAsPerson person = customerAsPersonRepo.findByCustomer_code(customer_code);
-//		CustomerAsCompany company = customerAsCompanyRepo.existsByCustomer_code(customer_code);
-//		Driver driver = driverRepo.findById(id);
-//		
-//		if(person.equals(null) && !company.equals(null)) {
-//			Parcel parcel = new Parcel(false,2,(float)12.99, Size.M,person, null, driver);
-//			parcelRepo.save(parcel);
-//		}else{
-//			Parcel parcel = new Parcel(false,2,(float)12.99, Size.M,null, company, driver);
-//			parcelRepo.save(parcel);
-//		}
+		//atrodu customer company pēc id
+		if(customerAsCompanyRepo.findByCustomer_code(customer_code).equals(null) ||
+				customerAsPersonRepo.findByCustomer_code(customer_code).equals(null)) throw new 
+		Exception("Customer with following customer code: " + customer_code + " does not exists!");
+		
+		//atrodu driver by id
+		if(driverRepo.findById(id).equals(null)) throw new 
+		Exception("Driver with following id: " + id + " does not exists!");
+		
+		//Izveidoju noklusējuma Parcel
+		Parcel newParcel = new Parcel();
+		
+		//Uzlieku jaunās vērtības
+		newParcel.setCustomerAsCompany(customerAsCompanyRepo.findByCustomer_code(customer_code));
+		newParcel.setCustomerAsPerson(customerAsPersonRepo.findByCustomer_code(customer_code));
+		newParcel.setDriver(driverRepo.findByIdd(id));
+		
+		//Saglabāju DB un repozitorijā
+		parcelRepo.save(newParcel);
 		
 	}
 
+	//PĀRBAUDĪTS
 	@Override
 	public void changeParcelDriverByParcelIdAndDriverId(int idp, int idd) throws Exception {
+		//Pārbaudu paciņas id
 		if(idp < 0) throw new Exception("Parcels Id should be positive!");
-		//atrodu parcel
-		Parcel parcelForUpdating = retriveById(idp);
+		
+		//Atrodu parcel
+		Parcel parcelForUpdating = parcelRepo.findById(idp).get();
+		//Pārbaudu vai tāda paciņa eksistē
 		if(parcelForUpdating.equals(null)) throw new Exception("Parcel with Id does not exists!");
 		
+		//Pārbaudu drivers id
 		if(idd < 0) throw new Exception("Drivers Id should be positive!");
+		//Pārbaudu vai tāds Driver eksistē
 		if(driverRepo.findByIdd(idd).equals(null)) throw new Exception("Driver with Id does not exists!");
-		//izmainu
+		
+		//Upditoju parcel uzliekot jauno Driver
 		parcelForUpdating.setDriver(driverRepo.findByIdd(idd));
 		
-		//saglabāju repo un DB
+		//Saglabāju repo un DB
 		parcelRepo.save(parcelForUpdating);
 	}
 
-	private Parcel retriveById(int idp) throws Exception {
-		if(idp < 0) throw new Exception("Id should be positive");
-		
-		if(parcelRepo.existsByIdp(idp)) {
-			return parcelRepo.findById(idp).get();
-		}else {
-			throw new Exception("Product with this id ("+ idp + ") is not in system");
-		}
-	}
-
+	//PĀRBAUDĪTS
 	@Override
 	public float calculateIncomeOfParcelsByCustomerId(int id) throws Exception {
-		//TODO te vajadzēs veidot ParcelRepo query
-		return 0;
+		//Pārbauda id vai nav negativs
+		if(id < 1) throw new Exception("Id should be positive");
+		
+		//Parbauda vai tads kurs ar id vispar eksistee
+		if(!customerAsPersonRepo.existsById(id) || !customerAsCompanyRepo.existsById(id)) 
+			throw new Exception("Customer with "+ id + " doesn't exists");
+		
+		//Izveido data jpa funkciju, kurai uzleik @Query anotaciju, jo sql vaicajummu jataisa pasam IProductRepo 1.seminara
+		float result = parcelRepo.calculateIncomeCustomerAsPersonById(id) + 
+				parcelRepo.calculateIncomeCustomerAsCompanyById(id);
+		
+		//Ja rezultats ir 0
+		if(result == 0) throw new Exception("There is no parcels!");
+		
+		//Ja viss ir kartiba, atgriezam so summu
+		return result;
 	}
 
+	//PĀRBAUDĪTS
 	@Override
 	public int calculateHowManyParcelsNeedToDeliverToday() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		//Dabūju šodienas datumu yyyy-mm-dd
+		int todayYear = LocalDateTime.now().getYear();
+		int todayMonth = LocalDateTime.now().getMonthValue();
+		int todayDay = LocalDateTime.now().getDayOfMonth();
+		
+		//Izveidoju vaicājuma String vērtību
+		//TODO šeit varētu būt kļūda
+		String sintax = "'" +todayYear + "-" + todayMonth + "-" + todayDay + "'%";
+		
+		//Nodefinē rezultatu
+		int result = parcelRepo.countOfDeliveryForToday(sintax);
+		
+		//Atgriež rezultatu
+		return result;
 	}
 	
 
