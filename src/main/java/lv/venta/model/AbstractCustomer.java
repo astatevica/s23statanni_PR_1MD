@@ -1,11 +1,14 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -52,9 +55,9 @@ public class AbstractCustomer {
 	private CustomerAsPerson customerAsPerson;
 	
 	//saite uz Parcel
-	@OneToOne(mappedBy = "abstractCustomer")
+	@OneToMany(mappedBy = "abstractCustomer")
 	@ToString.Exclude
-	private Parcel parcel;
+	private Collection<Parcel> parcel;
 	
 	public AbstractCustomer(String phone_no, Address address, CustomerAsCompany customerAsCompany, CustomerAsPerson customerAsPerson) {
 		setPhone_no(phone_no);
