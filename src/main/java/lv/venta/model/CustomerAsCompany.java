@@ -37,9 +37,9 @@ public class CustomerAsCompany {
 	@Setter
 	private String company_reg_no;
 	 
-	@Column(name = "Customer_code")
+	@Column(name = "CustomerCode")
 	@Setter
-	private String customer_code;
+	private String customerCode;
 	
 	@Column(name = "Title")
 	@NotNull
@@ -54,7 +54,7 @@ public class CustomerAsCompany {
 	
 	public CustomerAsCompany(String company_reg_no, String title) {
 		setCompany_reg_no(company_reg_no);
-		setCustomer_code(company_reg_no="0_company_"+company_reg_no);
+		setCustomerCode(company_reg_no="0_company_"+company_reg_no);
 		setTitle(title);
 	}
 	

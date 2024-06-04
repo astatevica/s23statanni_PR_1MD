@@ -6,8 +6,8 @@ import lv.venta.model.CustomerAsPerson;
 
 public interface ICustomerAsPersonRepo extends CrudRepository<CustomerAsPerson,Integer>{
 
-	boolean existsByCustomer_code(String customer_code);
+	boolean existsByCustomerCode(String customer_code);
 
-	CustomerAsPerson findByCustomer_code(String customer_code);
+	CustomerAsPerson findByCustomerCode(String customer_code);
 
 }

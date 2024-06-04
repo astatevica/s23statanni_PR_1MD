@@ -11,25 +11,22 @@ import lv.venta.model.Parcel;
 public interface IParcelRepo extends CrudRepository<Parcel, Integer>{
 	
 	//atradīs customer with id
-	ArrayList<Parcel> findByIdac(int id);
+	ArrayList<Parcel> findByAbstractCustomerIdac(int id);
 
 	//atradīs parcel by drivers id
-	ArrayList<Parcel> findByIdd(int id);
+	ArrayList<Parcel> findByDriverIdd(int id);
 
 	//atradīs preci kas lētāka par ievadīto skaitli
 	ArrayList<Parcel> findByPriceLessThan(float price);
 
 	//atradīs preci kas jāpiegādā konkrētai pilsētai no pasutītāja
-	ArrayList<Parcel> findByIdacIdaCity(City city);
+	ArrayList<Parcel> findByAbstractCustomerAddressCity(City city);
 	
 	//atradīs customer person with id un tālāk dosies un nākamo tabulu meklēs customer_code
-	ArrayList<Parcel> findByIdcpCustomer_code(String customer_code);
+	ArrayList<Parcel> findByAbstractCustomerCustomerAsCompanyCustomerCode(String customer_code);
 	
 	//atradīs customer company with id un tālāk dosies un nākamo tabulu meklēs customer_code
-	ArrayList<Parcel> findByIdccCustomer_code(String customer_code);
-
-	//atradīs pašu parcel by Id
-	boolean existsByIdp(int idp);
+	ArrayList<Parcel> findByAbstractCustomerCustomerAsPersonCustomerCode(String customer_code);
 	
 	//Query db lai saskaitītu cutomer person ieņēmumus
 	@Query(nativeQuery = true, value = "SELECT sum(price) FROM parcel WHERE idac=(?1);")

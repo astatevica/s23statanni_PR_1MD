@@ -39,11 +39,11 @@ public class Driver {
 	private String name;
 	
 	//TODO ja paliek pāri laika, tad izveidot ar mantošanu
-	@Column(name = "Person_code")
+	@Column(name = "PersonCode")
 	@NotNull
 	@Size(min = 12, max = 12)
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only letters and space are allowed")
-	private String person_code;
+	private String personCode;
 	
 	//TODO ja paliek pāri laika, tad izveidot ar mantošanu
 	@Column(name = "Surname")
@@ -69,7 +69,7 @@ public class Driver {
 	
 	public Driver(String name,String person_code, String surname, float experience_in_years, String license_no) {
 		setName(name);
-		setPerson_code(person_code);
+		setPersonCode(person_code);
 		setSurname(surname);
 		setExperience_in_years(experience_in_years);
 		setLicense_no(license_no);

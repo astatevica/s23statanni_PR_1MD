@@ -33,9 +33,9 @@ public class CustomerAsPerson {
 	private int idcp;
 	
 	
-	@Column(name = "Customer_code")
+	@Column(name = "CustomerCode")
 	@Setter
-	private String customer_code;
+	private String customerCode;
 	
 	@Column(name = "Person_code")
 	@NotNull
@@ -54,7 +54,7 @@ public class CustomerAsPerson {
 	private AbstractCustomer abstractCustomer;
 	
 	public CustomerAsPerson(String person_code, Person person) {
-		setCustomer_code(customer_code="0_person_"+person_code);
+		setCustomerCode(customerCode="0_person_"+person_code);
 		setPerson_code(person_code);
 		setPerson(person);
 	}

@@ -46,10 +46,10 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	@Override
 	public void create(Driver driver) throws Exception {
 		//TODO Ar person_code varētu būt problēmas
-		Driver existedDriver = driverRepo.findByNameAndSurnameAndPerson_code(driver.getName(), driver.getSurname(), driver.getPerson_code());
+		Driver existedDriver = driverRepo.findByNameAndSurnameAndPersonCode(driver.getName(), driver.getSurname(), driver.getPersonCode());
 		
 		//tāds driver jau eksistē
-		if(existedDriver != null) throw new Exception("Driver with name: " + driver.getName() + " and person code: " + driver.getPerson_code() + " already exists in DB!");
+		if(existedDriver != null) throw new Exception("Driver with name: " + driver.getName() + " and person code: " + driver.getPersonCode() + " already exists in DB!");
 		
 		//tāds driver vēl neeksistē
 		driverRepo.save(driver);
@@ -64,7 +64,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 		//izmainu
 		driverForUpdating.setName(driver.getName());
 		driverForUpdating.setSurname(driver.getSurname());
-		driverForUpdating.setPerson_code(driver.getPerson_code());
+		driverForUpdating.setPersonCode(driver.getPersonCode());
 		driverForUpdating.setLicense_no(driver.getLicense_no());
 		driverForUpdating.setExperience_in_years(driver.getExperience_in_years());
 		

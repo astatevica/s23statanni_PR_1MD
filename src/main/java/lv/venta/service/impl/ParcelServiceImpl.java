@@ -41,7 +41,7 @@ public class ParcelServiceImpl implements IParcelService{
 		//pārbaudu vai eksistē šādi customers
 		if(!abstractCustRepo.existsById(id)) throw new Exception("Customer with " + id + " id doesn't exist");
 		//Salieku visus vienā ArrayListā
-		ArrayList<Parcel> result = parcelRepo.findByIdac(id);
+		ArrayList<Parcel> result = parcelRepo.findByAbstractCustomerIdac(id);
 		
 		//Pārbaudu vai nav tukšs lists
 		if(result.isEmpty()) throw new Exception("There is no parcel with id: " + id + " as customer");
@@ -57,7 +57,7 @@ public class ParcelServiceImpl implements IParcelService{
 		if(id < 0) throw new Exception("Id should be positive number!");
 		
 		//Atrodu Drivers pēc id un ielieku listā 
-		ArrayList<Parcel> result = parcelRepo.findByIdd(id);
+		ArrayList<Parcel> result = parcelRepo.findByDriverIdd(id);
 		
 		//Pārbaudu vai lists nav tukšs
 		if(result.isEmpty()) throw new Exception("There is no parcel with id: " + id + " drivers");
@@ -87,7 +87,7 @@ public class ParcelServiceImpl implements IParcelService{
 		//Nepārbaudu city, jo tas ir enumerators
 		
 		//Meklēju adresi un pilsētu
-		ArrayList<Parcel> result = parcelRepo.findByIdacIdaCity(city);
+		ArrayList<Parcel> result = parcelRepo.findByAbstractCustomerAddressCity(city);
 		
 		//Pārbaudu vai lists nav tukšs
 		if(result.isEmpty()) throw new Exception("There is no order to city " + city);
@@ -101,8 +101,8 @@ public class ParcelServiceImpl implements IParcelService{
 	public void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id) throws Exception {
 
 		//atrodu customer company pēc id
-		if(customerAsCompanyRepo.findByCustomer_code(customer_code).equals(null) ||
-				customerAsPersonRepo.findByCustomer_code(customer_code).equals(null)) throw new 
+		if(customerAsCompanyRepo.findByCustomerCode(customer_code).equals(null) ||
+				customerAsPersonRepo.findByCustomerCode(customer_code).equals(null)) throw new 
 		Exception("Customer with following customer code: " + customer_code + " does not exists!");
 		
 		//atrodu driver by id
@@ -116,8 +116,8 @@ public class ParcelServiceImpl implements IParcelService{
 		AbstractCustomer newCustomer = new AbstractCustomer();
 		
 		//Uzlieku jaunās vērtības
-		newCustomer.setCustomerAsCompany(customerAsCompanyRepo.findByCustomer_code(customer_code));
-		newCustomer.setCustomerAsPerson(customerAsPersonRepo.findByCustomer_code(customer_code));
+		newCustomer.setCustomerAsCompany(customerAsCompanyRepo.findByCustomerCode(customer_code));
+		newCustomer.setCustomerAsPerson(customerAsPersonRepo.findByCustomerCode(customer_code));
 		newParcel.setAbstractCustomer(newCustomer);
 		newParcel.setDriver(driverRepo.findByIdd(id));
 		
