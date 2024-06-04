@@ -24,7 +24,7 @@ public class DriverController {
 	@Autowired
 	private IDriverCRUDService driverService;
 	
-	//Get- /driver/show/all PIRMAIS-GATAVS
+	//Get- /driver/show/all WORKS
 	@GetMapping("/show/all")//localhost:8080/driver/show/all
 	public String getAllDriver(Model model) {
 		try {
@@ -38,28 +38,29 @@ public class DriverController {
 		}
 	}
 	
-	//Get- /driver/show/all/{id} PIRMAIS-GATAVS
+	//Get- /driver/show/all/{id} WORKS
 	@GetMapping("/show/all/{id}")//localhost:8080/driver/show/all/{id}
 	public String getDriverById(@PathVariable("id") int id, Model model) {
 		try {
 			Driver selectedDriver = driverService.retrieveById(id);
 			model.addAttribute("mydata",selectedDriver);//padodam izfiltreto Driver uz driver-all-page.html lapu
 			model.addAttribute("msg", "Driver filtered by id");
-			return "driver-one-page";//paradam pasu driver-one-page.html lapu interneta parluka
+			return "driver-all-page";//paradam pasu driver-all-page.html lapu interneta parluka
 		} catch (Exception e) {
 			model.addAttribute("mydata",e.getMessage());//padod kludas zinu uz error-page.html lapu
 			return "error-page";//paradam pasu error-page.html lapu interneta parluka
 		}
 	}
 	
-	//Get- /driver/remove/{id} PIRMAIS-GATAVS
+	//Get- /driver/remove/{id} WORKS
 	@GetMapping("/remove/{id}") //localhost:8080/driver/remove/{id}
 	public String getDriverDeleteById(@PathVariable("id") int id, Model model) {
 		
 		try {
 			driverService.deleteById(id);
-			ArrayList<Driver> allDrivers = driverService.retrieveAll();
-			model.addAttribute("mydata",allDrivers);
+			ArrayList<Driver> allDrivers = driverService.retrieveAll(); 
+			model.addAttribute("mydata", allDrivers);//padod izfiltrētos driver uz driver-all-page.html
+			model.addAttribute("msg", "All drivers with out deleted driver no: " + id);
 			return "driver-all-page";
 		} catch (Exception e) {
 			model.addAttribute("mydata", e.getMessage());
@@ -68,40 +69,33 @@ public class DriverController {
 		
 	}
 	
-	//Get un Post- /driver/add PIRMAIS-GATAVS
-	@PostMapping("/add")
-	public String getDriverInsert(Driver driver) {//ienāk aizpildītais driver
-		System.out.println(driver);
-		//TODO varbūt šis nav korekti
-		return "redirect:/show/all";
+	//Get un Post- /driver/add NESTRĀDĀ->nepārslēdzas
+	@GetMapping("/add")
+	public String getDriverInsert(Model model) {//ienāk aizpildītais driver
+		model.addAttribute("driver", new Driver());
+		return "driver-add-page";
+		
 	} 
 	
-	public String postDriverInsert(@Valid Driver driver, BindingResult result) {//ienāk aizpildītais produkts
-		//vai ir kādi validācijas pāŗkāpumi
-		if(result.hasErrors())
-		{
-			return "product-add-page"; //turpinām palikt driver-add-page.html lapā
-		}
-		else
-		{
-			try {
-				driverService.create(driver);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			//TODO varbūt šis nav korekti
-			return "redirect:/show/all";
+	@PostMapping("/add")
+	public String postDriverInsert(@Valid Driver driver, BindingResult result) throws Exception {// ienāk aizpildītais driver
+		// vai ir kādi validācijas pāŗkāpumi
+		if (result.hasErrors()) {
+			return "driver-add-page"; // turpinām palikt driver-add-page.html lapā
+		} else {
+			driverService.create(driver);
+			return "redirect:/driver/show/all";
 		}
 
 	}
 	
-	//Get un Post- /driver/update/{id} PIRMAIS-GATAVS
+	//Get un Post- /driver/update/{id} NESTRĀDĀ->nepārslēdzas
 	@GetMapping("/update/{id}") //localhost:8080/driver/update/1
 	public String getDriverUpdateById(@PathVariable("id") int id, Model model) {
 		
 		try {
 			Driver driverForUpdating = driverService.retrieveById(id);
-			model.addAttribute("product",driverForUpdating);
+			model.addAttribute("driver",driverForUpdating);
 			model.addAttribute("id", id);
 			return "driver-update-page"; // parādām driver-update-page.html, padodot atlasīto produktu
 			
@@ -120,7 +114,7 @@ public class DriverController {
 		}else {
 			try {
 				driverService.update(id, driver);
-				return "redirect:/show/all/"+ id;//pārlecu uz /show/all/{id} galapunktu
+				return "redirect:/driver/show/all/"+ id;//pārlecu uz /show/all/{id} galapunktu
 			} catch (Exception e) {
 				model.addAttribute("mydata", e.getMessage());
 				return "error-page";

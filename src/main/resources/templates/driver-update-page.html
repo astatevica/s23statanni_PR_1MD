@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<p>Please insert driver</p>
+
+	<form th:action = "@{/driver/update/__${id}__}" method = "post" th:object="${driver}">
+		
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" th:field="*{name}"/></td>
+				<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+			</tr>
+			<tr>
+				<td>Surname</td>
+				<td><input type="text" th:field="*{surname}"/></td>
+				<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
+			</tr>
+			<tr>
+				<td>Person code</td>
+				<td><input type="text" th:field="*{personCode}"/></td>
+				<td th:if="${#fields.hasErrors('personCode')}" th:errors="*{personCode}"></td>
+			</tr>
+			<tr>
+				<td>Experience in years</td>
+				<td><input type="text" th:field="*{experience_in_years}"/></td>
+				<td th:if="${#fields.hasErrors('experience_in_years')}" th:errors="*{experience_in_years}"></td>
+			</tr>	
+			<tr>
+				<td>License no</td>
+				<td><input type="text" th:field="*{license_no}"/></td>
+				<td th:if="${#fields.hasErrors('license_no')}" th:errors="*{license_no}"></td>
+			</tr>					
+		</table>
+		
+		<button type="button">Update</button>
+		
+		
+	</form>
+
+</body>
+</html>

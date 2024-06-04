@@ -3,6 +3,7 @@ package lv.venta.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.model.AbstractCustomer;
 import lv.venta.model.Address;
@@ -13,6 +14,7 @@ import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
 import lv.venta.service.ICustomerService;
 
+@Service
 public class CustomerServiceImpl implements ICustomerService{
 	
 	@Autowired

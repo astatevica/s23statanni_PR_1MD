@@ -3,11 +3,13 @@ package lv.venta.service.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.model.Driver;
 import lv.venta.repo.IDriverRepo;
 import lv.venta.service.IDriverCRUDService;
 
+@Service
 public class DriverServiceImpl implements IDriverCRUDService{
 
 	@Autowired
@@ -44,7 +46,7 @@ public class DriverServiceImpl implements IDriverCRUDService{
 	}
 
 	@Override
-	public void create(Driver driver) throws Exception {
+	public void create(Driver driver) throws Exception{
 		//TODO Ar person_code varētu būt problēmas
 		Driver existedDriver = driverRepo.findByNameAndSurnameAndPersonCode(driver.getName(), driver.getSurname(), driver.getPersonCode());
 		

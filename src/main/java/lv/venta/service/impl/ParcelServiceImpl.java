@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.model.AbstractCustomer;
 import lv.venta.model.City;
@@ -15,6 +16,7 @@ import lv.venta.repo.IDriverRepo;
 import lv.venta.repo.IParcelRepo;
 import lv.venta.service.IParcelService;
 
+@Service
 public class ParcelServiceImpl implements IParcelService{
 
 	@Autowired
