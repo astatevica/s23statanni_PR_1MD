@@ -58,30 +58,24 @@ public class Parcel {
 	@NotNull
 	private Size size;
 	
-	
-	//saite no CustomerAsPerson
+	//saite no AbstractCustomer
 	@OneToOne
-	@JoinColumn(name = "Idcp")
-	private CustomerAsPerson customerAsPerson;
-	
-	//saite no CustomerAsCompany
-	@OneToOne
-	@JoinColumn(name = "Idcc")
-	private CustomerAsCompany customerAsCompany;
+	@JoinColumn(name = "Idac")
+	private AbstractCustomer abstractCustomer;
 	
 	//saite no Driver
 	@OneToOne
 	@JoinColumn(name = "Idd")
 	private Driver driver;
 	
-	public Parcel(boolean is_fragile, int days, float price, Size size, CustomerAsPerson customerAsPerson, CustomerAsCompany customerAsCompany, Driver driver) {
+	
+	public Parcel(boolean is_fragile, int days, float price, Size size, AbstractCustomer abstractCustomer, Driver driver) {
 		set_fragile(is_fragile);
 		setOrder_created(LocalDateTime.now());
 		setOrder_delivery(LocalDateTime.now().plusDays(days));
 		setPrice(price);
 		setSize(size);
-		setCustomerAsPerson(customerAsPerson);
-		setCustomerAsCompany(customerAsCompany);
+		setAbstractCustomer(abstractCustomer);
 		setDriver(driver);
 	}
 	

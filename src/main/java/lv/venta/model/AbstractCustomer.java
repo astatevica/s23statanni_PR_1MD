@@ -51,6 +51,11 @@ public class AbstractCustomer {
 	@JoinColumn(name="Idcp")
 	private CustomerAsPerson customerAsPerson;
 	
+	//saite uz Parcel
+	@OneToOne(mappedBy = "abstractCustomer")
+	@ToString.Exclude
+	private Parcel parcel;
+	
 	public AbstractCustomer(String phone_no, Address address, CustomerAsCompany customerAsCompany, CustomerAsPerson customerAsPerson) {
 		setPhone_no(phone_no);
 		setAddress(address);

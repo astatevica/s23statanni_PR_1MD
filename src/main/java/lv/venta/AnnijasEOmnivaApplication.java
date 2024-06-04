@@ -78,26 +78,27 @@ public class AnnijasEOmnivaApplication {
 				custCompRepo.save(customerAsCompany2);
 				custCompRepo.save(customerAsCompany3);
 				
-				//Parcel Model pārbaude WORKS
-				Parcel parcel1 = new Parcel(false,2,(float)12.99, Size.M,customerAsPerson1, null, driver1);
-				Parcel parcel2 = new Parcel(true ,6,(float)2.99, Size.S,null, customerAsCompany2, driver2);
-				parcelRepo.save(parcel1);
-				parcelRepo.save(parcel2);
-				
 				//AbstractCustomer pārbaude
 				//String phone_no, Address address, CustomerAsCompany customerAsCompany, CustomerAsPerson customerAsPerson
 				AbstractCustomer abCustomer1 = new AbstractCustomer("98201982", address1,null,customerAsPerson1);
 				AbstractCustomer abCustomer2 = new AbstractCustomer("67398746", address2,null,customerAsPerson2);
 				AbstractCustomer abCustomer3 = new AbstractCustomer("53682763", address3,null,customerAsPerson3);
-				AbstractCustomer abCustomer4 = new AbstractCustomer("26538764", address1,customerAsCompany1,null);
+				AbstractCustomer abCustomer4 = new AbstractCustomer("26538764", address3,customerAsCompany1,null);
 				AbstractCustomer abCustomer5 = new AbstractCustomer("16527632", address2,customerAsCompany2,null);
-				AbstractCustomer abCustomer6 = new AbstractCustomer("18726532", address3,customerAsCompany3,null);
+				AbstractCustomer abCustomer6 = new AbstractCustomer("18726532", address1,customerAsCompany3,null);
 				abstractRepo.save(abCustomer1);
 				abstractRepo.save(abCustomer2);
 				abstractRepo.save(abCustomer3);
 				abstractRepo.save(abCustomer4);
 				abstractRepo.save(abCustomer5);
 				abstractRepo.save(abCustomer6);
+				
+				//Parcel Model pārbaude WORKS
+				//boolean is_fragile, int days, float price, Size size, AbstractCustomer abstractCustomer, Driver driver
+				Parcel parcel1 = new Parcel(false,2,(float)12.99, Size.M,abCustomer1, driver1);
+				Parcel parcel2 = new Parcel(true ,6,(float)2.99, Size.S,abCustomer4, driver2);
+				parcelRepo.save(parcel1);
+				parcelRepo.save(parcel2);
 
 				
 				

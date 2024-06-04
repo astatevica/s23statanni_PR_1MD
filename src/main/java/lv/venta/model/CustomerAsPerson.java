@@ -47,11 +47,6 @@ public class CustomerAsPerson {
 	@JoinColumn(name = "Idp")
 	private Person person;
 	
-	//saite uz Parcel
-	@OneToOne(mappedBy = "customerAsPerson")
-	@ToString.Exclude
-	private Parcel parcel;
-	
 	//saite uz AbstractCustomer
 	@OneToOne(mappedBy = "customerAsPerson")
 	@ToString.Exclude

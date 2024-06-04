@@ -47,11 +47,6 @@ public class CustomerAsCompany {
 	@Setter
 	private String title;
 	
-	//saite uz Parcel
-	@OneToOne(mappedBy = "customerAsCompany")
-	@ToString.Exclude
-	private Parcel parcel;
-	
 	//saite uz AbstractCustomer
 	@OneToOne(mappedBy = "customerAsCompany")
 	@ToString.Exclude
