@@ -95,7 +95,7 @@ public class AnnijasEOmnivaApplication {
 				//AbstractCustomer pārbaude
 				//String phone_no, Address address, CustomerAsCompany customerAsCompany, CustomerAsPerson customerAsPerson
 				AbstractCustomer abCustomer1 = new AbstractCustomer("98201982", address6,null,customerAsPerson3);
-				AbstractCustomer abCustomer2 = new AbstractCustomer("67398746", address5,null,customerAsPerson1);
+				AbstractCustomer abCustomer2 = new AbstractCustomer("67398746", address6,null,customerAsPerson1);
 				AbstractCustomer abCustomer3 = new AbstractCustomer("53682763", address4,null,customerAsPerson2);
 				AbstractCustomer abCustomer4 = new AbstractCustomer("26538764", address3,customerAsCompany3,null);
 				AbstractCustomer abCustomer5 = new AbstractCustomer("16527632", address2,customerAsCompany2,null);
