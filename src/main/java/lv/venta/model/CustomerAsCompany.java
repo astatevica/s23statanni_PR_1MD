@@ -30,12 +30,12 @@ public class CustomerAsCompany {
 	@Setter(value = AccessLevel.NONE)
 	private int idcc;
 	
-	@Column(name = "Company_reg_no")
+	@Column(name = "CompanyRegNo")
 	@NotNull
 	@Size(min = 13, max = 13)
 	@Pattern(regexp = "[L]{1}[V]{1}[0-9]{11}", message = "Invalid registration number")
 	@Setter
-	private String company_reg_no;
+	private String companyRegNo;
 	 
 	@Column(name = "CustomerCode")
 	@Setter
@@ -53,7 +53,7 @@ public class CustomerAsCompany {
 	private AbstractCustomer abstractCustomer;
 	
 	public CustomerAsCompany(String company_reg_no, String title) {
-		setCompany_reg_no(company_reg_no);
+		setCompanyRegNo(company_reg_no);
 		setCustomerCode(company_reg_no="0_company_"+company_reg_no);
 		setTitle(title);
 	}

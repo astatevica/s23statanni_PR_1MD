@@ -36,11 +36,11 @@ public class Person {
 	@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters and space are allowed")
 	private String name;
 	
-	@Column(name = "Person_code")
+	@Column(name = "PersonCode")
 	@NotNull
 	@Size(min = 12, max = 12)
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
-	private String person_code;
+	private String personCode;
 	
 	@Column(name = "Surname")
 	@NotNull
@@ -55,7 +55,7 @@ public class Person {
 	
 	public Person(String name, String person_code,String surname ) {
 		setName(name);
-		setPerson_code(person_code);
+		setPersonCode(person_code);
 		setSurname(surname);
 	}
 }
