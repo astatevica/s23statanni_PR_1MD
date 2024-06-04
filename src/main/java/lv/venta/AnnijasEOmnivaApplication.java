@@ -116,8 +116,8 @@ public class AnnijasEOmnivaApplication {
 				Parcel parcel1 = new Parcel(false,2,(float)12.99, Size.M,abCustomer1, driver1);
 				Parcel parcel2 = new Parcel(true,5,(float)70.00, Size.L,abCustomer2, driver2);
 				Parcel parcel3 = new Parcel(false,7,(float)17.45, Size.S,abCustomer3, driver3);
-				Parcel parcel4 = new Parcel(false ,3,(float)2.99, Size.S,abCustomer4, driver4);
-				Parcel parcel5 = new Parcel(false ,4,(float)2.99, Size.S,abCustomer5, driver5);
+				Parcel parcel4 = new Parcel(false ,3,(float)2.99, Size.S,abCustomer4, driver1);
+				Parcel parcel5 = new Parcel(false ,4,(float)2.99, Size.S,abCustomer5, driver1);
 				Parcel parcel6 = new Parcel(false ,2,(float)2.99, Size.S,abCustomer6, driver6);
 
 				try {
