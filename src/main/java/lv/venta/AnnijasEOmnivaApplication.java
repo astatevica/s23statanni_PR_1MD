@@ -32,8 +32,8 @@ public class AnnijasEOmnivaApplication {
 	}
 	
 	@Bean //izsaucas automātiski, kas palaiž sistēmu
-	public CommandLineRunner testDB(IAddressRepo addrRepo, ICustomerAsCompanyRepo custCompRepo, ICustomerAsPersonRepo custPersRepo, IDriverRepo driverRepo, 
-			IParcelRepo parcelRepo,IPersonRepo personRepo, IAbstractCustomerRepo abstractRepo) {
+	public CommandLineRunner testDB(IAddressRepo addrRepo, ICustomerAsCompanyRepo custCompRepo, ICustomerAsPersonRepo custPersRepo, 
+			IDriverRepo driverRepo, IParcelRepo parcelRepo,IPersonRepo personRepo, IAbstractCustomerRepo abstractRepo) {
 		
 		return new CommandLineRunner() {
 			
