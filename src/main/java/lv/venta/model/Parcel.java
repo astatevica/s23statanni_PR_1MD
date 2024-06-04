@@ -44,10 +44,6 @@ public class Parcel {
 	@Setter
 	private LocalDateTime order_delivery;
 	
-	//izveidoju mainīgo, kas neies DB, bet kas paņems dienu skaitu pēc kāda laika var tikt piegādāts sūtījums
-	@Setter
-	private int days;
-	
 	@Column(name = "Price")
 	@NotNull
 	@Setter

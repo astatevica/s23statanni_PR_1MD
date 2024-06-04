@@ -32,6 +32,7 @@ public class CustomerAsPerson {
 	@Setter(value = AccessLevel.NONE)
 	private int idcp;
 	
+	
 	@Column(name = "Customer_code")
 	@Setter
 	private String customer_code;
