@@ -69,7 +69,7 @@ public class DriverController {
 		
 	}
 	
-	//Get un Post- /driver/add NESTRĀDĀ->nepārslēdzas
+	//Get un Post- /driver/add WORKS
 	@GetMapping("/add")
 	public String getDriverInsert(Model model) {//ienāk aizpildītais driver
 		model.addAttribute("driver", new Driver());
@@ -89,7 +89,7 @@ public class DriverController {
 
 	}
 	
-	//Get un Post- /driver/update/{id} NESTRĀDĀ->nepārslēdzas
+	//Get un Post- /driver/update/{id} WORKS
 	@GetMapping("/update/{id}") //localhost:8080/driver/update/1
 	public String getDriverUpdateById(@PathVariable("id") int id, Model model) {
 		
