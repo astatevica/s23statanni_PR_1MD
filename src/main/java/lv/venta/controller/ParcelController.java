@@ -79,6 +79,33 @@ public class ParcelController {
 	
 	//Get un Post- /parcel/add/{customercode}/{driverid}
 	//Get- /parcel/change/{parcelid}/{driverid}
-	//Get- /parcel/calculate/income/{customerid}
-	//Get- /parcel/calculate/count/today
+	
+	//Get- /parcel/calculate/income/{customerid} WORKS
+	@GetMapping("calculate/income/{customerid}")
+	public String getIncomeByCustomerId(@PathVariable("customerid") int id, Model model) {
+		try {
+			float result = parcelService.calculateIncomeOfParcelsByCustomerId(id);
+			model.addAttribute("mydata", "Total income: " + result + " euro");
+			return "parcel-calculate-page";			
+		} catch (Exception e) {
+			model.addAttribute("mydata", e.getMessage());
+			return "error-page";
+		}
+	}
+	
+	//Get- /parcel/calculate/count/today WORKS
+	@GetMapping("/calculate/count/today") 
+	public String getHowManyParcelsDeliverToday(Model model) {
+		try
+		{
+			int result = parcelService.calculateHowManyParcelsNeedToDeliverToday();
+			model.addAttribute("mydata", "Total " + result + " parcels need to be delivered today!");
+			return "parcel-calculate-page";
+		}
+		catch (Exception e) {
+			model.addAttribute("mydata", e.getMessage());
+			return "error-page";
+		}
+	}
+	
 }
