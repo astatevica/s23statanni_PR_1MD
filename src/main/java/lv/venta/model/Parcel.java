@@ -64,7 +64,6 @@ public class Parcel {
 	@JoinColumn(name = "Idd")
 	private Driver driver;
 	
-	
 	public Parcel(boolean is_fragile, int days, float price, Size size, AbstractCustomer abstractCustomer, Driver driver) {
 		set_fragile(is_fragile);
 		setOrder_created(LocalDateTime.now());

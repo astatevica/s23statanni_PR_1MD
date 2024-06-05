@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	
+	<p th:text="${msg}"></p>
+	<table border="1">
+		<tr>
+			<td><b>Id</b></td>
+			<td><b>Order created</b></td>
+			<td><b>Order delivery</b></td>
+			<td><b>Price</b></td>
+			<td><b>Size</b></td>
+			<td><b>Customer</b></td>
+			<td><b>Driver</b></td>
+		</tr>
+		
+		<tr th:each="tempC : ${mydata}">
+			<td th:text="${tempC.getIdpa()}"></td>
+			<td th:text="${tempC.getOrder_created()}"></td>
+			<td th:text="${tempC.getOrder_delivery()}"></td>
+			<td th:text="${tempC.getPrice()}"></td>
+			<td th:text="${tempC.getSize()}"></td>
+			<td th:text="${tempC.getAbstractCustomer().getIdac()}"></td>
+			<td th:text="${tempC.getDriver.getIdd()}"></td>			
+		</tr>
+		
+	</table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<p>Please insert customer</p>
+
+	<form th:action="@{/customer/create/person}" method="post" th:object="${customerAsPerson}">
+		
+		<table>
+			<tr>
+				<td>Person code</td>
+				<td><input type="text" th:field="*{personCode}" /></td>
+				<td th:if="${#fields.hasErrors('personCode')}" th:errors="*{personCode}"></td>
+			</tr>			
+		</table>
+		
+		<button type="submit">Save</button>
+		
+	</form>
+
+</body>
+</html>
