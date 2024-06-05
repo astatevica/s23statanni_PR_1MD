@@ -78,7 +78,15 @@ public class ParcelController {
 	}
 	
 	//Get un Post- /parcel/add/{customercode}/{driverid}
-	//Get- /parcel/change/{parcelid}/{driverid}
+	
+	//Get- /parcel/change/{parcelid}/{driverid} WORKS
+	@GetMapping("change/{parcelid}/{driverid}")
+	public String getChangeParcelDriver(@PathVariable("parcelid") int id1,
+			@PathVariable("driverid") int id2, Model model) throws Exception {
+		parcelService.changeParcelDriverByParcelIdAndDriverId(id1,id2);
+		return getCustomerById(id1, model);			
+		
+	}
 	
 	//Get- /parcel/calculate/income/{customerid} WORKS
 	@GetMapping("calculate/income/{customerid}")
