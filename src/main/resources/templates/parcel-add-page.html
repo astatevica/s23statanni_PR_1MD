@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<p>Please insert parcel</p>
+
+	<form th:action="@{|/add/{customercode}/{driverid}|}" method="post" th:object="${parcel}">
+		
+		<table>
+			<tr>
+				<td>Is fragile</td>
+				<td><input type="text" th:field="*{is_fragile}"/></td>
+				<td th:if="${#fields.hasErrors('is_fragile')}" th:errors="*{is_fragile}"></td>
+			</tr>
+			<tr>
+				<td>Delivery days</td>
+				<td><input type="text" th:field="*{days}"/></td>
+				<td th:if="${#fields.hasErrors('days')}" th:errors="*{days}"></td>
+			</tr>
+			<tr>
+				<td>Price</td>
+				<td><input type="text" th:field="*{price}"/></td>
+				<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></td>
+			</tr>
+			<tr>
+				<td>Size</td>
+				<td><input type="text" th:field="*{size}"/></td>
+				<td th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></td>
+			</tr>						
+		</table>
+		
+		<button type="submit">Save</button>
+		
+		
+	</form>
+
+</body>
+</html>

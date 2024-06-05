@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import lv.venta.model.City;
 import lv.venta.model.Parcel;
 import lv.venta.service.IParcelService;
@@ -77,7 +80,51 @@ public class ParcelController {
 		}
 	}
 	
-	//Get un Post- /parcel/add/{customercode}/{driverid}
+	//Get un Post- /parcel/add/{customercode}/{driverid} NESTRĀDĀ
+	@GetMapping("/add/{customercode}/{driverid}")
+	public String getParcelInsert(@PathVariable("customercode") String customer_code,
+			@PathVariable("driverid") int id ,Model model) throws Exception {
+
+		try {
+            parcelService.insertNewParcelByCustomerCodeAndDriverId(customer_code, id);
+            model.addAttribute("parcel", new Parcel());
+            return "parcel-add-page";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page"; 
+        }
+
+	}
+	
+	@PostMapping("/add/{customercode}/{driverid}")
+	public String postParcelInsert(@PathVariable("customercode") String customer_code,
+            @PathVariable("driverid") int id,@Valid Parcel parcel, BindingResult result, Model model) {// ienāk aizpildītais parcel
+		// vai ir kādi validācijas pāŗkāpumi
+		if (result.hasErrors()) {
+			return "parcel-add-page"; // turpinām palikt product-insert-page.html lapā
+		} else {
+			try {
+				parcelService.insertNewParcelByCustomerCodeAndDriverId(customer_code, id);
+				return "redirect:/parcel/show/customer/"+parcel.getAbstractCustomer().getIdac();
+			} catch (Exception e) {
+				 model.addAttribute("errorMessage", e.getMessage());
+	               return "parcel-add-page";
+			}
+		}
+
+	}
+
+//	@PostMapping("/add/{customercode}/{driverid}")
+//	public String postParcelInsert(@Valid Parcel parcel, BindingResult result) {// ienāk aizpildītais parcel
+//		// vai ir kādi validācijas pāŗkāpumi
+//		if (result.hasErrors()) {
+//			return "parcel-add-page"; // turpinām palikt product-insert-page.html lapā
+//		} else {
+//			return "redirect:/parcel/show/customer/"+parcel.getAbstractCustomer().getIdac();
+//		}
+//
+//	}
+	
 	
 	//Get- /parcel/change/{parcelid}/{driverid} WORKS
 	@GetMapping("change/{parcelid}/{driverid}")
