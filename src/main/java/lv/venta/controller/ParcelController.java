@@ -25,7 +25,7 @@ public class ParcelController {
 
 	//Get- /parcel/show/customer/{id} WORKS
 	//TODO getIs_fragile nestrādā
-	@GetMapping("show/customer/{id}")
+	@GetMapping("/show/customer/{id}")
 	public String getCustomerById(@PathVariable("id") int id, Model model) {
 		try {
 			ArrayList<Parcel> result = parcelService.selectAllParcelsByCustomerId(id);
@@ -39,7 +39,7 @@ public class ParcelController {
 	}
 	
 	//Get- /parcel/show/driver/{id} WORKS
-	@GetMapping("show/driver/{id}")
+	@GetMapping("/show/driver/{id}")
 	public String getDriverById(@PathVariable("id") int id, Model model) {
 		try {
 			ArrayList<Parcel> result = parcelService.selectAllParcelsDeliveredByDriverId(id);
@@ -53,7 +53,7 @@ public class ParcelController {
 	}
 	
 	//Get- /parcel/show/price/{threshold} WORKS
-	@GetMapping("show/price/{threshold}")
+	@GetMapping("/show/price/{threshold}")
 	public String getParcelsLessThanPrice(@PathVariable("threshold") float price, Model model) {
 		try {
 			ArrayList<Parcel> result = parcelService.selectAllParcelsPriceLessThan(price);
@@ -67,7 +67,7 @@ public class ParcelController {
 	}
 	
 	//Get- /parcel/show/city/{cityparam} WORKS
-	@GetMapping("show/city/{cityparam}")
+	@GetMapping("/show/city/{cityparam}")
 	public String getParceDrivedToCity(@PathVariable("cityparam") City city, Model model) {
 		try {
 			ArrayList<Parcel> result = parcelService.selectAllParcelsDeliveredToCity(city);
@@ -86,11 +86,12 @@ public class ParcelController {
 			@PathVariable("driverid") int id ,Model model) throws Exception {
 
 		try {
-            parcelService.insertNewParcelByCustomerCodeAndDriverId(customer_code, id);
             model.addAttribute("parcel", new Parcel());
+            model.addAttribute("customercode", customer_code); //ja kļūda tad šo pazaudē, tāpēc padod tālāk
+            model.addAttribute("driverid", id); //ja kļūda tad šo pazaudē, tāpēc padod tālāk
             return "parcel-add-page";
         } catch (Exception e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("mydata", e.getMessage());
             return "error-page"; 
         }
 
@@ -100,34 +101,28 @@ public class ParcelController {
 	public String postParcelInsert(@PathVariable("customercode") String customer_code,
             @PathVariable("driverid") int id,@Valid Parcel parcel, BindingResult result, Model model) {// ienāk aizpildītais parcel
 		// vai ir kādi validācijas pāŗkāpumi
+		System.out.println(parcel);
+		System.out.println(customer_code);
+		System.out.println(id);
 		if (result.hasErrors()) {
 			return "parcel-add-page"; // turpinām palikt product-insert-page.html lapā
 		} else {
 			try {
-				parcelService.insertNewParcelByCustomerCodeAndDriverId(customer_code, id);
+				System.out.println("Pirms");
+				parcelService.insertNewParcelByCustomerCodeAndDriverId(customer_code, id, parcel);
+				System.out.println("Pēc");
 				return "redirect:/parcel/show/customer/"+parcel.getAbstractCustomer().getIdac();
 			} catch (Exception e) {
-				 model.addAttribute("errorMessage", e.getMessage());
-	               return "parcel-add-page";
+				model.addAttribute("mydata", e.getMessage());
+	            return "error-page";
 			}
 		}
 
 	}
-
-//	@PostMapping("/add/{customercode}/{driverid}")
-//	public String postParcelInsert(@Valid Parcel parcel, BindingResult result) {// ienāk aizpildītais parcel
-//		// vai ir kādi validācijas pāŗkāpumi
-//		if (result.hasErrors()) {
-//			return "parcel-add-page"; // turpinām palikt product-insert-page.html lapā
-//		} else {
-//			return "redirect:/parcel/show/customer/"+parcel.getAbstractCustomer().getIdac();
-//		}
-//
-//	}
 	
 	
 	//Get- /parcel/change/{parcelid}/{driverid} WORKS
-	@GetMapping("change/{parcelid}/{driverid}")
+	@GetMapping("/change/{parcelid}/{driverid}")
 	public String getChangeParcelDriver(@PathVariable("parcelid") int id1,
 			@PathVariable("driverid") int id2, Model model) throws Exception {
 		parcelService.changeParcelDriverByParcelIdAndDriverId(id1,id2);
@@ -136,7 +131,7 @@ public class ParcelController {
 	}
 	
 	//Get- /parcel/calculate/income/{customerid} WORKS
-	@GetMapping("calculate/income/{customerid}")
+	@GetMapping("/calculate/income/{customerid}")
 	public String getIncomeByCustomerId(@PathVariable("customerid") int id, Model model) {
 		try {
 			float result = parcelService.calculateIncomeOfParcelsByCustomerId(id);

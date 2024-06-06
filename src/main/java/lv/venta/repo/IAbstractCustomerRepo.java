@@ -3,6 +3,8 @@ package lv.venta.repo;
 import org.springframework.data.repository.CrudRepository;
 
 import lv.venta.model.AbstractCustomer;
+import lv.venta.model.CustomerAsCompany;
+import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Person;
 
 public interface IAbstractCustomerRepo extends CrudRepository<AbstractCustomer, Integer>{
@@ -15,6 +17,10 @@ public interface IAbstractCustomerRepo extends CrudRepository<AbstractCustomer, 
 
 	//Sameklē company pēc customer koda
 	boolean existsByCustomerAsCompanyCompanyRegNo(String company_reg_no);
+
+	AbstractCustomer findByCustomerAsCompany(CustomerAsCompany customerAsCompany);
+
+	AbstractCustomer findByCustomerAsPerson(CustomerAsPerson customerAsPerson);
 
 
 }

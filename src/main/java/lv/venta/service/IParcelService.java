@@ -25,7 +25,7 @@ public interface IParcelService {
 	
 	//PARBAUDĪTS
 	//insertNewParcelByCustomerCodeAndDriverId- pievieno jaunu paciņu konkrētam pircējam un piesaistot to konkrētam šoferim pēc tā id;
-	public abstract void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id) throws Exception;
+	public abstract void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id, Parcel parcel) throws Exception;
 	
 	//PARBAUDĪTS
 	//changeParcelDriverByParcelIdAndDriverId- nomaina esošās paciņas kurjeru uz citu šoferi, funkcijā padodot gan šofera id, gan paciņas id;

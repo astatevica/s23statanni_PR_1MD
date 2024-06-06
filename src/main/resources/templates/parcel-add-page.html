@@ -4,14 +4,15 @@
 
 	<p>Please insert parcel</p>
 
-	<form th:action="@{|/add/{customercode}/{driverid}|}" method="post" th:object="${parcel}">
+	<form th:action="@{/parcel/add/__${customercode}__/__${driverid}__}" method="post" th:object="${parcel}">
 		
 		<table>
+			<!-- 
 			<tr>
 				<td>Is fragile</td>
 				<td><input type="text" th:field="*{is_fragile}"/></td>
 				<td th:if="${#fields.hasErrors('is_fragile')}" th:errors="*{is_fragile}"></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Delivery days</td>
 				<td><input type="text" th:field="*{days}"/></td>

@@ -54,6 +54,8 @@ public class Parcel {
 	@NotNull
 	private Size size;
 	
+	private int days;
+	
 	//saite no AbstractCustomer
 	@ManyToOne
 	@JoinColumn(name = "Idac")
@@ -63,6 +65,11 @@ public class Parcel {
 	@ManyToOne
 	@JoinColumn(name = "Idd")
 	private Driver driver;
+	
+	public void setDays(int days) {
+		setOrder_created(LocalDateTime.now());
+		setOrder_delivery(LocalDateTime.now().plusDays(days));
+	}
 	
 	public Parcel(boolean is_fragile, int days, float price, Size size, AbstractCustomer abstractCustomer, Driver driver) {
 		set_fragile(is_fragile);

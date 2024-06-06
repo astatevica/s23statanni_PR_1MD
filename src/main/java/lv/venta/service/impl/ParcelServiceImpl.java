@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import lv.venta.model.AbstractCustomer;
 import lv.venta.model.City;
+import lv.venta.model.CustomerAsCompany;
+import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Parcel;
 import lv.venta.repo.IAbstractCustomerRepo;
 import lv.venta.repo.ICustomerAsCompanyRepo;
@@ -100,31 +102,39 @@ public class ParcelServiceImpl implements IParcelService{
 
 	//DOUBLE CHECKED
 	@Override
-	public void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id) throws Exception {
+	public void insertNewParcelByCustomerCodeAndDriverId(String customer_code, int id, Parcel parcel) throws Exception {
 
 		//atrodu customer company pēc id
-		if(customerAsCompanyRepo.findByCustomerCode(customer_code).equals(null) ||
-				customerAsPersonRepo.findByCustomerCode(customer_code).equals(null)) throw new 
+		if(customerAsCompanyRepo.findByCustomerCode(customer_code)==null &&
+				customerAsPersonRepo.findByCustomerCode(customer_code)==null) throw new 
 		Exception("Customer with following customer code: " + customer_code + " does not exists!");
 		
 		//atrodu driver by id
-		if(driverRepo.findById(id).equals(null)) throw new 
+		if(driverRepo.findById(id)==null) throw new 
 		Exception("Driver with following id: " + id + " does not exists!");
 		
 		//Izveidoju noklusējuma Parcel
-		Parcel newParcel = new Parcel();
+		Parcel newParcel = parcel;
+		newParcel.setDays(parcel.getDays());
 		
 		//Izveidoju noklusējuma AbstractCustomer
-		AbstractCustomer newCustomer = new AbstractCustomer();
-		
-		//Uzlieku jaunās vērtības
-		newCustomer.setCustomerAsCompany(customerAsCompanyRepo.findByCustomerCode(customer_code));
-		newCustomer.setCustomerAsPerson(customerAsPersonRepo.findByCustomerCode(customer_code));
-		newParcel.setAbstractCustomer(newCustomer);
-		newParcel.setDriver(driverRepo.findByIdd(id));
-		
-		//Saglabāju DB un repozitorijā
-		parcelRepo.save(newParcel);
+		//sadalīt divās daļās 
+		CustomerAsCompany customerAsCompany = customerAsCompanyRepo.findByCustomerCode(customer_code);
+		CustomerAsPerson customerAsPerson = customerAsPersonRepo.findByCustomerCode(customer_code);
+		if (customerAsCompany != null) {
+			AbstractCustomer newCustomer = abstractCustRepo.findByCustomerAsCompany(customerAsCompany);
+			newParcel.setAbstractCustomer(newCustomer);
+			newParcel.setDriver(driverRepo.findByIdd(id));
+			
+			//Saglabāju DB un repozitorijā
+			parcelRepo.save(newParcel);
+		}else if (customerAsPerson != null) {
+			AbstractCustomer newCustomer = abstractCustRepo.findByCustomerAsPerson(customerAsPerson);
+			newParcel.setAbstractCustomer(newCustomer);
+			newParcel.setDriver(driverRepo.findByIdd(id));
+			
+			parcelRepo.save(newParcel);
+		}
 		
 	}
 
