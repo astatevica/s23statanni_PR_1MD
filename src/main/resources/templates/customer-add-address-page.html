@@ -4,13 +4,23 @@
 
 	<p>Please insert address</p>
 
-	<form th:action = "@{/customer/add/address/__${customerid}__}" method = "post" th:object="${abstractCustomer}">
+	<form th:action = "@{/customer/add/address/__${customerid}__}" method = "post" th:object="${customer}">
 		
 		<table>
 			<tr>
-				<td>Address</td>
-				<td><input type="text" th:field="*{address}"/></td>
-				<td th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></td>
+				<td>City</td>
+				<td><input type="text" th:field="*{address.city}"/></td>
+				<td th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></td>
+			</tr>
+			<tr>
+				<td>House number</td>
+				<td><input type="text" th:field="*{address.house_no}"/></td>
+				<td th:if="${#fields.hasErrors('address.house_no')}" th:errors="*{address.house_no}"></td>
+			</tr>
+			<tr>
+				<td>Street or house number</td>
+				<td><input type="text" th:field="*{address.street_or_house_title}"/></td>
+				<td th:if="${#fields.hasErrors('address.street_or_house_title')}" th:errors="*{address.street_or_house_title}"></td>
 			</tr>
 								
 		</table>

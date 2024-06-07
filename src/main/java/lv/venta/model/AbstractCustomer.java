@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -35,7 +34,6 @@ public class AbstractCustomer {
 	private int idac;
 	
 	@Column(name = "Phone_no")
-	@NotNull
 	@Size(min = 8, max = 8)
 	@Pattern(regexp = "[0-9]{8}", message = "Only numbers are allowed with out country code before")
 	private String phone_no;

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,8 +74,6 @@ public class CustomerController {
 			AbstractCustomer customerForUpdating = customerService.retrieveById(id);
 			model.addAttribute("customer",customerForUpdating);
 			model.addAttribute("customerid", id);
-			System.out.println(customerForUpdating);
-			System.out.println(id);
 			return "customer-add-address-page"; // parādām driver-update-page.html, padodot atlasīto produktu
 			
 		} catch (Exception e) {
@@ -86,15 +85,16 @@ public class CustomerController {
 	
 	@PostMapping("/add/address/{customerid}")
 	public String postCustomerUpdateById(@PathVariable("customerid") int id, 
-			@Valid AbstractCustomer abstractCustomer, BindingResult result, Model model) {
-		System.out.println(abstractCustomer);
-		System.out.println(id);
+			@Valid @ModelAttribute("customer") AbstractCustomer abstractCustomer, BindingResult result, Model model) {
+		System.out.println(result);
 		if(result.hasErrors()) {
 			return "customer-add-address-page";
 		}else {
 			try {
+				System.out.println("Pirms");
 				customerService.addAddressToCustomerByCustomerId(id, abstractCustomer);
-				return "redirect:/driver/show/all"; //+ id;//pārlecu uz /show/all/{id} galapunktu
+				System.out.println("Pēc");
+				return "redirect:/driver/show/all";
 			} catch (Exception e) {
 				model.addAttribute("mydata", e.getMessage());
 				return "error-page";
