@@ -37,11 +37,11 @@ public class CustomerAsPerson {
 	@Setter
 	private String customerCode;
 	
-	@Column(name = "Person_code")
+	@Column(name = "PersonCode")
 	@NotNull
 	@Size(min = 12, max = 12)
 	@Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Only numbers and '-' are allowed")
-	private String person_code;
+	private String personCode;
 	
 	//saite no Person
 	@OneToOne
@@ -55,7 +55,7 @@ public class CustomerAsPerson {
 	
 	public CustomerAsPerson(String person_code, Person person) {
 		setCustomerCode(customerCode="0_person_"+person_code);
-		setPerson_code(person_code);
+		setPersonCode(person_code);
 		setPerson(person);
 	}
 	

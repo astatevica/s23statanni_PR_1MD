@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.model.AbstractCustomer;
-import lv.venta.model.Address;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
 import lv.venta.repo.IAbstractCustomerRepo;
@@ -27,27 +26,30 @@ public class CustomerServiceImpl implements ICustomerService{
 	private ICustomerAsCompanyRepo custCompRepo;
 
 	@Override
-	public void insertNewCustomerAsPerson(String person_code) throws Exception {
+	public void insertNewCustomerAsPerson(CustomerAsPerson customerAsPerson) throws Exception {
+		//person_code
 		//pārbaudu vai tāds jau eksistē
-		if(abstCustRepo.existsByCustomerAsPersonPersonPersonCode(person_code)) throw new Exception("Customer with person code: " + person_code + " already exists!");
+		if(custPersRepo.existsByPersonCode(customerAsPerson.getPersonCode()))
+			throw new Exception("Customer with person code: " + customerAsPerson.getPersonCode() + " already exists!");
 		
 		//pievienoju jaunu un saglabāju
-		CustomerAsPerson customerAsPerson = new CustomerAsPerson(person_code, abstCustRepo.findByCustomerAsPersonPersonPersonCode(person_code));
-		custPersRepo.save(customerAsPerson);
+		CustomerAsPerson newPerson = new CustomerAsPerson(customerAsPerson.getPersonCode(), customerAsPerson.getPerson());
+		custPersRepo.save(newPerson);
 	}
 
 	@Override
-	public void insertNewCustomerAsCompany(String company_reg_no, String title) throws Exception {
+	public void insertNewCustomerAsCompany(CustomerAsCompany customerAsCompany) throws Exception {
 		//pārbaudu vai tāds jau eksistē
-		if(abstCustRepo.existsByCustomerAsCompanyCompanyRegNo(company_reg_no)) throw new Exception("Customer with company registration number: " + company_reg_no + " already exists!");
+		//šo var optimizēt
+		if(abstCustRepo.existsByCustomerAsCompanyCompanyRegNo(customerAsCompany.getCompanyRegNo())) throw new Exception("Customer with company registration number: " + customerAsCompany.getCompanyRegNo() + " already exists!");
 		
 		//pievienoju jaunu un saglabāju
-		CustomerAsCompany customerAsCompany = new CustomerAsCompany(company_reg_no, title);
-		custCompRepo.save(customerAsCompany);
+		CustomerAsCompany newCompnay = new CustomerAsCompany(customerAsCompany.getCompanyRegNo(), customerAsCompany.getTitle());
+		custCompRepo.save(newCompnay);
 	}
 
 	@Override
-	public void addAddressToCustomerByCustomerId(int id, Address address) throws Exception {
+	public void addAddressToCustomerByCustomerId(int id, AbstractCustomer abstractCustomer) throws Exception {
 		//pārbaudu vai tāds customers eksistē
 		if(!abstCustRepo.existsById(id)) throw new Exception("Customer with id: " + id + " does not exist");
 		
@@ -55,9 +57,25 @@ public class CustomerServiceImpl implements ICustomerService{
 		AbstractCustomer customerToAddAddress = abstCustRepo.findById(id).get();
 		
 		//pievienoju adresi un saglabāju
-		customerToAddAddress.setAddress(address);
+		
+		customerToAddAddress.getAddress().setCity(abstractCustomer.getAddress().getCity());
+		customerToAddAddress.getAddress().setHouse_no(abstractCustomer.getAddress().getHouse_no());
+		customerToAddAddress.getAddress().setStreet_or_house_title(abstractCustomer.getAddress().getStreet_or_house_title());
 		abstCustRepo.save(customerToAddAddress);
 		
 	}
+
+	@Override
+	public AbstractCustomer retrieveById(int id) throws Exception {
+		if(id < 0) throw new Exception("Id should be positive");
+		
+		if(abstCustRepo.existsById(id)) {
+			return abstCustRepo.findById(id).get();
+		}else {
+			throw new Exception("Driver with this id ("+ id + ") is not in system");
+		}
+	}
+	
+	
 
 }

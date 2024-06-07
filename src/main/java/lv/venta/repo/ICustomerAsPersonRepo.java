@@ -10,6 +10,9 @@ public interface ICustomerAsPersonRepo extends CrudRepository<CustomerAsPerson,I
 
 	CustomerAsPerson findByCustomerCode(String customer_code);
 
+	boolean existsByPersonCode(String person_code);
+
+
 
 
 }
