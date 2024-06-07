@@ -1,5 +1,7 @@
 package lv.venta.service;
 
+import java.util.ArrayList;
+
 import lv.venta.model.AbstractCustomer;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
@@ -20,5 +22,7 @@ public interface ICustomerService {
 	//iegūstu abstract suctomer by id
 	public abstract AbstractCustomer retrieveById(int id) throws Exception;
 
+	//parādīt visus customers
+	public abstract ArrayList<AbstractCustomer> retrieveAll() throws Exception;
 	
 }

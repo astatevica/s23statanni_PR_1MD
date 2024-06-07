@@ -1,6 +1,8 @@
 package lv.venta.controller;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +42,7 @@ public class CustomerController {
 			return "customer-person-create-page"; // turpinām palikt customer-person-create-page.html lapā
 		} else {
 			customerService.insertNewCustomerAsPerson(customerAsPerson);
-			return "redirect:/driver/show/all";
+			return "redirect:/customer/show/all";
 		}
 
 	}
@@ -61,7 +63,7 @@ public class CustomerController {
 			return "customer-company-create-page"; // turpinām palikt customer-person-create-page.html lapā
 		} else {
 			customerService.insertNewCustomerAsCompany(customerAsCompany);
-			return "redirect:/driver/show/all";
+			return "redirect:/customer/show/all";
 		}
 
 	}
@@ -94,11 +96,25 @@ public class CustomerController {
 				System.out.println("Pirms");
 				customerService.addAddressToCustomerByCustomerId(id, abstractCustomer);
 				System.out.println("Pēc");
-				return "redirect:/driver/show/all";
+				return "redirect:/customer/show/all";
 			} catch (Exception e) {
 				model.addAttribute("mydata", e.getMessage());
 				return "error-page";
 			}
+		}
+	}
+	
+	//Get- /customer/show/all WORKS
+	@GetMapping("/show/all")//localhost:8080/customer/show/all
+	public String getAllCustomers(Model model) {
+		try {
+			ArrayList<AbstractCustomer> allCustomers = customerService.retrieveAll(); 
+			model.addAttribute("mydata", allCustomers);//padod izfiltrētos driver uz driver-all-page.html
+			model.addAttribute("msg", "All customers");
+			return "customer-all-page";//paradam pasu driver-all-page.html lapu interneta parluka
+		}catch (Exception e) {
+			model.addAttribute("mydata",e.getMessage());//padod kludas zinu uz error-page.html lapu
+			return "error-page";//paradam pasu error-page.html lapu interneta parluka
 		}
 	}
 	

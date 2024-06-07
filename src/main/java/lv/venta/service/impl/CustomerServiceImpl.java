@@ -2,13 +2,17 @@ package lv.venta.service.impl;
 
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.model.AbstractCustomer;
+import lv.venta.model.Address;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
 import lv.venta.repo.IAbstractCustomerRepo;
+import lv.venta.repo.IAddressRepo;
 import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
 import lv.venta.service.ICustomerService;
@@ -24,6 +28,9 @@ public class CustomerServiceImpl implements ICustomerService{
 	
 	@Autowired
 	private ICustomerAsCompanyRepo custCompRepo;
+	
+	@Autowired
+	private IAddressRepo addressRepo;
 
 	@Override
 	public void insertNewCustomerAsPerson(CustomerAsPerson customerAsPerson) throws Exception {
@@ -53,6 +60,14 @@ public class CustomerServiceImpl implements ICustomerService{
 		//sameklēju customeri, kuram vajag pievienot adresi
 		AbstractCustomer customerToAddAddress = retrieveById(id);
 		
+		//sadabūju adresi no ienākošā objekta
+		Address newAddress = abstractCustomer.getAddress();
+		
+		//pārbaudu un saglabāju adresi
+		if(newAddress.getIda()==0) {
+			addressRepo.save(newAddress);
+		}
+		
 		//pievienoju adresi un saglabāju
 		customerToAddAddress.setAddress(abstractCustomer.getAddress());
 		abstCustRepo.save(customerToAddAddress);
@@ -68,6 +83,13 @@ public class CustomerServiceImpl implements ICustomerService{
 		}else {
 			throw new Exception("Driver with this id ("+ id + ") is not in system");
 		}
+	}
+
+	@Override
+	public ArrayList<AbstractCustomer> retrieveAll() throws Exception {
+		if(abstCustRepo.count()==0) throw new Exception("Database is empty");
+		
+		return (ArrayList<AbstractCustomer>) abstCustRepo.findAll();
 	}
 	
 	
