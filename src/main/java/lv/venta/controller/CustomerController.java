@@ -71,10 +71,10 @@ public class CustomerController {
 		
 		try {
 			AbstractCustomer customerForUpdating = customerService.retrieveById(id);
-			System.out.println(customerForUpdating);
-			System.out.println(id);
 			model.addAttribute("customer",customerForUpdating);
 			model.addAttribute("customerid", id);
+			System.out.println(customerForUpdating);
+			System.out.println(id);
 			return "customer-add-address-page"; // parādām driver-update-page.html, padodot atlasīto produktu
 			
 		} catch (Exception e) {
@@ -85,14 +85,16 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/add/address/{customerid}")
-	public String postCustomerUpdateById(@PathVariable("id") int id, 
+	public String postCustomerUpdateById(@PathVariable("customerid") int id, 
 			@Valid AbstractCustomer abstractCustomer, BindingResult result, Model model) {
+		System.out.println(abstractCustomer);
+		System.out.println(id);
 		if(result.hasErrors()) {
 			return "customer-add-address-page";
 		}else {
 			try {
 				customerService.addAddressToCustomerByCustomerId(id, abstractCustomer);
-				return "redirect:/driver/show/all/"; //+ id;//pārlecu uz /show/all/{id} galapunktu
+				return "redirect:/driver/show/all"; //+ id;//pārlecu uz /show/all/{id} galapunktu
 			} catch (Exception e) {
 				model.addAttribute("mydata", e.getMessage());
 				return "error-page";

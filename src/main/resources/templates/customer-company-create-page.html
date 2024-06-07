@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<p>Please insert Company</p>
+
+	<form th:action = "@{/customer/create/company}" method = "post" th:object="${customerAsCompany}">
+		
+		<table>
+			<tr>
+				<td>Registration number</td>
+				<td><input type="text" th:field="*{companyRegNo}"/></td>
+				<td th:if="${#fields.hasErrors('companyRegNo')}" th:errors="*{companyRegNo}"></td>
+			</tr>
+			<tr>
+				<td>Title</td>
+				<td><input type="text" th:field="*{title}"/></td>
+				<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+			</tr>						
+		</table>
+		
+		<button type="submit">Save</button>
+		
+		
+	</form>
+
+</body>
+</html>

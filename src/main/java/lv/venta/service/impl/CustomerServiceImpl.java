@@ -50,17 +50,11 @@ public class CustomerServiceImpl implements ICustomerService{
 
 	@Override
 	public void addAddressToCustomerByCustomerId(int id, AbstractCustomer abstractCustomer) throws Exception {
-		//pārbaudu vai tāds customers eksistē
-		if(!abstCustRepo.existsById(id)) throw new Exception("Customer with id: " + id + " does not exist");
-		
 		//sameklēju customeri, kuram vajag pievienot adresi
-		AbstractCustomer customerToAddAddress = abstCustRepo.findById(id).get();
+		AbstractCustomer customerToAddAddress = retrieveById(id);
 		
 		//pievienoju adresi un saglabāju
-		
-		customerToAddAddress.getAddress().setCity(abstractCustomer.getAddress().getCity());
-		customerToAddAddress.getAddress().setHouse_no(abstractCustomer.getAddress().getHouse_no());
-		customerToAddAddress.getAddress().setStreet_or_house_title(abstractCustomer.getAddress().getStreet_or_house_title());
+		customerToAddAddress.setAddress(abstractCustomer.getAddress());
 		abstCustRepo.save(customerToAddAddress);
 		
 	}

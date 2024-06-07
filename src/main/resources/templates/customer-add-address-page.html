@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<p>Please insert address</p>
+
+	<form th:action = "@{/customer/add/address/__${customerid}__}" method = "post" th:object="${abstractCustomer}">
+		
+		<table>
+			<tr>
+				<td>Address</td>
+				<td><input type="text" th:field="*{address}"/></td>
+				<td th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></td>
+			</tr>
+								
+		</table>
+		
+		<button type="update">Update</button>
+		
+		
+	</form>
+
+</body>
+</html>
+
